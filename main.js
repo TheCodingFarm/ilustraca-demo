@@ -6,6 +6,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinksContainer = document.querySelector('.nav-links');
     const sections = document.querySelectorAll('header[id], section[id]');
     
+    // Section to navbar mapping for intermediate page areas
+    const sectionToNavMap = {
+        'home': 'home',
+        'journey': 'home',
+        'about': 'about',
+        'teach': 'about',
+        'courses': 'courses',
+        'why-us': 'why-us',
+        'reviews': 'why-us',
+        'testimonials': 'testimonials',
+        'faq': 'faq',
+        'vlogs': 'faq'
+    };
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -14,34 +28,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Scroll spy active link updater
-        let currentSectionId = '';
+        let activeNavTarget = 'home';
+        const scrollPosition = window.scrollY + 140; // offset for sticky navbar height
+
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 120;
+            const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
-            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                currentSectionId = section.getAttribute('id');
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                const secId = section.getAttribute('id');
+                if (secId && sectionToNavMap[secId]) {
+                    activeNavTarget = sectionToNavMap[secId];
+                }
             }
         });
 
-        if (currentSectionId) {
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentSectionId}`) {
-                    link.classList.add('active');
-                }
-            });
+        // Near bottom of page fallback to FAQ
+        if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight - 50) {
+            activeNavTarget = 'faq';
         }
+
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === `#${activeNavTarget}`) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
     });
 
     // Mobile Menu Toggle
     if (mobileMenuBtn && navLinksContainer) {
         mobileMenuBtn.addEventListener('click', () => {
             navLinksContainer.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                if (navLinksContainer.classList.contains('active')) {
+                    icon.className = 'fa-solid fa-xmark';
+                } else {
+                    icon.className = 'fa-solid fa-bars';
+                }
+            }
         });
 
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 navLinksContainer.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) icon.className = 'fa-solid fa-bars';
             });
         });
     }
