@@ -5,29 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ilustraca Academy | Structural Engineering Excellence</title>
 
-    <!-- Google Fonts: Outfit & Inter -->
+    <!-- Resource Hints & DNS Prefetch for Fast Network Handshakes -->
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
 
-    <!-- FontAwesome for Icons -->
+    <!-- Non-Render Blocking Asynchronous Fonts & Icons Loading -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap"
+      />
+    </noscript>
+
+    <link
+      rel="preload"
+      as="style"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      />
+    </noscript>
+
+    <!-- Preload LCP Hero Image for Instant Paint -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=70"
+      fetchpriority="high"
     />
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.min.css" />
   </head>
   <body>
     <!-- Navigation Bar -->
     <nav class="navbar" id="navbar">
       <div class="nav-container">
         <a href="#" class="nav-logo">
-          <div class="logo-mark">ia</div>
-          <span class="logo-subtext">ILUSTRACA ACADEMY</span>
+          <img src="logo.webp" alt="Ilustraca Academy Logo" />
         </a>
 
         <ul class="nav-links">
@@ -104,8 +142,13 @@
         <div class="hero-image animate-fade-in-up delay-2">
           <div class="image-wrapper hero-img-card">
             <img
-              src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80"
+              src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=70"
               alt="Civil & Structural Engineering Blueprint Analysis"
+              fetchpriority="high"
+              loading="eager"
+              decoding="async"
+              width="600"
+              height="338"
             />
             <div class="hero-floating-card">
               <div class="floating-icon">
@@ -222,6 +265,10 @@
               <img
                 src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&auto=format&fit=crop&q=80"
                 alt="Ilustraca Structural Engineering Firm"
+                loading="lazy"
+                decoding="async"
+                width="800"
+                height="550"
               />
               <div class="about-experience-badge">
                 <span class="badge-num">15+</span>
@@ -318,6 +365,10 @@
                   alt="ETABS 3D Multistory Analysis"
                   id="softwareCarouselImg"
                   class="software-carousel-img"
+                  loading="lazy"
+                  decoding="async"
+                  width="800"
+                  height="500"
                 />
                 <div class="software-badge-pill" id="softwareCarouselBadge">
                   <i class="fa-solid fa-layer-group"></i> ETABS 3D MULTISTORY
@@ -384,231 +435,6 @@
         </div>
       </section>
 
-      <!-- Reviews Slider Section (Modernized) -->
-      <section class="section reviews-section bg-primary-dark" id="reviews">
-        <div class="container">
-          <div class="section-header center text-white">
-            <span class="section-subtitle text-white"
-              ><i class="fa-solid fa-star"></i> VERIFIED STUDENT REVIEWS</span
-            >
-            <h2 class="section-title text-white">
-              Why Engineers Trust Ilustraca
-            </h2>
-            <p class="section-description text-white opacity-80">
-              Hear directly from practicing structural consultants, site
-              engineers, and postgraduates who have transformed their design
-              confidence.
-            </p>
-
-            <div class="overall-rating-pill">
-              <span class="stars"
-                ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-                ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-                ><i class="fa-solid fa-star"></i
-              ></span>
-              <span class="rating-text"
-                ><strong>4.9 / 5.0 Rating</strong> • 500+ Verified Structural
-                Alumni</span
-              >
-            </div>
-          </div>
-
-          <div class="reviews-slider-container">
-            <button
-              class="slider-arrow-main"
-              id="prevReview"
-              aria-label="Previous Review"
-            >
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <div class="reviews-slider" id="reviewsSlider">
-              <!-- Review 1 -->
-              <div class="review-card">
-                <div class="review-bubble">
-                  <div class="review-top-meta">
-                    <div class="star-rating">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                    <span class="verified-badge"
-                      ><i class="fa-solid fa-circle-check"></i> Verified</span
-                    >
-                  </div>
-                  <p>
-                    "Truly a professional ETABS masterclass. All the practical
-                    aspects of high-rise structural design and IS code
-                    provisions are covered in a lucid manner. You can
-                    practically start designing real buildings right away."
-                  </p>
-                </div>
-                <div class="reviewer-info">
-                  <img
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
-                    alt="J Ranjan"
-                  />
-                  <div>
-                    <h4>J. Ranjan</h4>
-                    <span class="reviewer-role"
-                      >Structural Design Consultant</span
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <!-- Review 2 -->
-              <div class="review-card">
-                <div class="review-bubble">
-                  <div class="review-top-meta">
-                    <div class="star-rating">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                    <span class="verified-badge"
-                      ><i class="fa-solid fa-circle-check"></i> Verified</span
-                    >
-                  </div>
-                  <p>
-                    "It's a pleasure to be part of Ilustraca. I learned ETABS
-                    shear wall modeling and manual sanity calculations with
-                    complete clarity. Sandip Sir's industry experience makes all
-                    the difference."
-                  </p>
-                </div>
-                <div class="reviewer-info">
-                  <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
-                    alt="Chandan Gupta"
-                  />
-                  <div>
-                    <h4>Chandan Gupta</h4>
-                    <span class="reviewer-role"
-                      >Senior Structural Engineer</span
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <!-- Review 3 -->
-              <div class="review-card">
-                <div class="review-bubble">
-                  <div class="review-top-meta">
-                    <div class="star-rating">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                    <span class="verified-badge"
-                      ><i class="fa-solid fa-circle-check"></i> Verified</span
-                    >
-                  </div>
-                  <p>
-                    "Sandip Sir is an exceptionally knowledgeable mentor. He
-                    explains complex dynamic response spectrum analysis and IS
-                    1893 seismic clauses with real project drawings."
-                  </p>
-                </div>
-                <div class="reviewer-info">
-                  <img
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80"
-                    alt="Rahul Das"
-                  />
-                  <div>
-                    <h4>Rahul Das</h4>
-                    <span class="reviewer-role"
-                      >Assistant Professor, Civil Eng.</span
-                    >
-                  </div>
-                </div>
-              </div>
-
-              <!-- Review 4 -->
-              <div class="review-card">
-                <div class="review-bubble">
-                  <div class="review-top-meta">
-                    <div class="star-rating">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                    <span class="verified-badge"
-                      ><i class="fa-solid fa-circle-check"></i> Verified</span
-                    >
-                  </div>
-                  <p>
-                    "The SAFE foundation and raft slab module answered all my
-                    soil spring stiffness questions. The course material and
-                    rebar detailing guides are top-notch!"
-                  </p>
-                </div>
-                <div class="reviewer-info">
-                  <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80"
-                    alt="Ananya Roy"
-                  />
-                  <div>
-                    <h4>Ananya Roy</h4>
-                    <span class="reviewer-role">BIM & Structural Modeler</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Review 5 -->
-              <div class="review-card">
-                <div class="review-bubble">
-                  <div class="review-top-meta">
-                    <div class="star-rating">
-                      <i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i
-                      ><i class="fa-solid fa-star"></i>
-                    </div>
-                    <span class="verified-badge"
-                      ><i class="fa-solid fa-circle-check"></i> Verified</span
-                    >
-                  </div>
-                  <p>
-                    "Hands down the best practical civil engineering academy in
-                    India. The steel truss STAAD Pro module helped me land a
-                    senior structural design role."
-                  </p>
-                </div>
-                <div class="reviewer-info">
-                  <img
-                    src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80"
-                    alt="Vikramaditya S."
-                  />
-                  <div>
-                    <h4>Vikramaditya S.</h4>
-                    <span class="reviewer-role">Design Engineer @ L&T</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button
-              class="slider-arrow-main"
-              id="nextReview"
-              aria-label="Next Review"
-            >
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-          </div>
-        </div>
-        <!-- Decorative elements -->
-        <div class="bg-pattern-top-left"></div>
-        <div class="bg-pattern-bottom-right"></div>
-      </section>
-
       <!-- Our Courses Section -->
       <section class="section courses-section bg-light" id="courses">
         <div class="container">
@@ -636,6 +462,10 @@
                 <img
                   src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop&q=80"
                   alt="Advanced ETABS & RCC Design"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="380"
                 />
               </div>
               <div class="course-content">
@@ -675,6 +505,10 @@
                 <img
                   src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80"
                   alt="STAAD Pro Steel Structure"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="380"
                 />
               </div>
               <div class="course-content">
@@ -713,6 +547,10 @@
                 <img
                   src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&auto=format&fit=crop&q=80"
                   alt="Revit Structural BIM"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="380"
                 />
               </div>
               <div class="course-content">
@@ -752,6 +590,10 @@
                 <img
                   src="https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?w=600&auto=format&fit=crop&q=80"
                   alt="SAFE Foundation Design"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="380"
                 />
               </div>
               <div class="course-content">
@@ -790,6 +632,10 @@
                 <img
                   src="https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?w=600&auto=format&fit=crop&q=80"
                   alt="AutoCAD Structural Detailing"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="380"
                 />
               </div>
               <div class="course-content">
@@ -828,6 +674,10 @@
                 <img
                   src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?w=600&auto=format&fit=crop&q=80"
                   alt="IS Code Compliance"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="380"
                 />
               </div>
               <div class="course-content">
@@ -1066,6 +916,10 @@
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
                   alt="Samantha Williams"
                   class="user-avatar"
+                  loading="lazy"
+                  decoding="async"
+                  width="150"
+                  height="150"
                 />
                 <div class="user-details">
                   <h5>Samantha Williams</h5>
@@ -1106,6 +960,10 @@
                   src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
                   alt="David Chen"
                   class="user-avatar"
+                  loading="lazy"
+                  decoding="async"
+                  width="150"
+                  height="150"
                 />
                 <div class="user-details">
                   <h5>David Chen</h5>
@@ -1146,6 +1004,10 @@
                   src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80"
                   alt="Vikramaditya S."
                   class="user-avatar"
+                  loading="lazy"
+                  decoding="async"
+                  width="150"
+                  height="150"
                 />
                 <div class="user-details">
                   <h5>Vikramaditya S.</h5>
@@ -1280,6 +1142,10 @@
               <img
                 src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80"
                 alt="Modern Building Structure"
+                loading="lazy"
+                decoding="async"
+                width="800"
+                height="600"
               />
             </div>
             <!-- Floating Support Callout Card -->
@@ -1326,6 +1192,10 @@
                 <img
                   src="https://images.unsplash.com/photo-1541888081-300bc7db60d9?w=600&auto=format&fit=crop&q=80"
                   alt="High-Rise Structural Analysis"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="380"
                 />
                 <div class="vlog-play-overlay">
                   <div class="play-icon-sm">
@@ -1363,6 +1233,10 @@
                 <img
                   src="https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?w=600&auto=format&fit=crop&q=80"
                   alt="Steel Structure Dynamics"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="380"
                 />
                 <div class="read-time-overlay">
                   <span><i class="fa-regular fa-clock"></i> 6 min read</span>
@@ -1395,6 +1269,10 @@
                 <img
                   src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop&q=80"
                   alt="STAAD Pro Modeling"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="380"
                 />
                 <div class="vlog-play-overlay">
                   <div class="play-icon-sm">
@@ -1505,8 +1383,7 @@
           </div>
           <div class="footer-col footer-brand-col">
             <a href="#" class="footer-logo">
-              <span class="logo-text text-gradient">ia</span>
-              <span class="logo-subtext">Ilustraca Academy</span>
+              <img src="logo.webp" alt="Ilustraca Academy Logo" />
             </a>
             <p class="footer-bio">
               Empowering civil and structural engineers with industry-grade
@@ -1550,7 +1427,7 @@
       <div class="footer-bottom">
         <div class="container footer-bottom-container">
           <p>
-            &copy; 2025 Ilustraca Academy. All Rights Reserved. Powered by
+            &copy; 2026 Ilustraca Academy. All Rights Reserved. Powered by
             <strong>The Coding Farm</strong>
           </p>
           <button id="backToTop" class="back-to-top" aria-label="Back to Top">

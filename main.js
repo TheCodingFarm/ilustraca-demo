@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Sticky Navbar & Active Section Scroll-Spy
+    // 1. Sticky Navbar & Active Section Scroll-Spy (Performance Optimized)
     const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-links a');
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinksContainer = document.querySelector('.nav-links');
-    const sections = document.querySelectorAll('header[id], section[id]');
+    const parallaxImages = document.querySelectorAll('.hero-image img');
     
     // Section to navbar mapping for intermediate page areas
     const sectionToNavMap = {
@@ -14,47 +14,77 @@ document.addEventListener('DOMContentLoaded', () => {
         'teach': 'about',
         'courses': 'courses',
         'why-us': 'why-us',
-        'reviews': 'why-us',
+        'reviews': 'testimonials',
         'testimonials': 'testimonials',
         'faq': 'faq',
         'vlogs': 'faq'
     };
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-        
-        // Scroll spy active link updater
-        let activeNavTarget = 'home';
-        const scrollPosition = window.scrollY + 140; // offset for sticky navbar height
+    // Cache section bounds to eliminate forced synchronous reflows inside scroll event
+    let cachedSections = [];
+    function updateSectionBounds() {
+        const sectionElements = document.querySelectorAll('header[id], section[id]');
+        cachedSections = Array.from(sectionElements).map(section => {
+            const secId = section.getAttribute('id');
+            const top = section.getBoundingClientRect().top + window.scrollY;
+            const height = section.offsetHeight;
+            return { id: secId, top, height, targetNav: sectionToNavMap[secId] || null };
+        });
+    }
 
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                const secId = section.getAttribute('id');
-                if (secId && sectionToNavMap[secId]) {
-                    activeNavTarget = sectionToNavMap[secId];
+    updateSectionBounds();
+    window.addEventListener('resize', updateSectionBounds, { passive: true });
+
+    let isTicking = false;
+    function onScroll() {
+        if (!isTicking) {
+            requestAnimationFrame(() => {
+                const scrollY = window.scrollY;
+                if (scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
                 }
-            }
-        });
+                
+                // Scroll spy active link updater
+                let activeNavTarget = 'home';
+                const scrollPosition = scrollY + 120;
 
-        // Near bottom of page fallback to FAQ
-        if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight - 50) {
-            activeNavTarget = 'faq';
+                for (let i = 0; i < cachedSections.length; i++) {
+                    const sec = cachedSections[i];
+                    if (scrollPosition >= sec.top && scrollPosition < sec.top + sec.height) {
+                        if (sec.targetNav) activeNavTarget = sec.targetNav;
+                    }
+                }
+
+                // Near bottom of page fallback to FAQ
+                if ((window.innerHeight + Math.round(scrollY)) >= document.documentElement.scrollHeight - 50) {
+                    activeNavTarget = 'faq';
+                }
+
+                navLinks.forEach(link => {
+                    const targetHref = link.getAttribute('href');
+                    if (targetHref === `#${activeNavTarget}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                // Parallax Hero Effect (GPU accelerated)
+                if (scrollY < 800) {
+                    parallaxImages.forEach(img => {
+                        img.style.transform = `translate3d(0, ${scrollY * 0.04}px, 0)`;
+                    });
+                }
+
+                isTicking = false;
+            });
+            isTicking = true;
         }
+    }
 
-        navLinks.forEach(link => {
-            if (link.getAttribute('href') === `#${activeNavTarget}`) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
-    });
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     // Mobile Menu Toggle
     if (mobileMenuBtn && navLinksContainer) {
@@ -153,17 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // 7. V2: Subtle Hero Parallax Background Effect
-    const parallaxImages = document.querySelectorAll('.hero-image img');
-    
-    window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        parallaxImages.forEach(img => {
-            if (scrollY < 800) {
-                img.style.transform = `translateY(${scrollY * 0.04}px)`;
-            }
-        });
-    });
+
 
 });
 
